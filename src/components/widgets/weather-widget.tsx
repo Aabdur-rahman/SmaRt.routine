@@ -7,22 +7,8 @@ function useCoords() {
   return useQuery<Coords>({
     queryKey: ["geo-coords"],
     queryFn: async () => {
-      if (typeof navigator !== "undefined" && navigator.geolocation) {
-        try {
-          const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 6000 });
-          });
-          return { lat: pos.coords.latitude, lon: pos.coords.longitude };
-        } catch {}
-      }
-      // IP fallback
-      try {
-        const r = await fetch("https://ipapi.co/json/");
-        const j = await r.json();
-        return { lat: j.latitude, lon: j.longitude, name: `${j.city}, ${j.country_name}` };
-      } catch {
-        return { lat: 25.276987, lon: 55.296249, name: "Dubai" };
-      }
+      // Default to Islamabad, Pakistan
+      return { lat: 33.6844, lon: 73.0479, name: "Islamabad, Pakistan" };
     },
     staleTime: 30 * 60_000,
   });
