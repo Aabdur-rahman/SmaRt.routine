@@ -12,7 +12,7 @@ export const Route = createFileRoute("/")({
       { title: "Lumen — Your intelligent life dashboard" },
       { name: "description", content: "The premium personal dashboard for tasks, habits, weather, prayer, notes, and XP streaks. Beautifully themed." },
       { property: "og:title", content: "Lumen — Your intelligent life dashboard" },
-      { property: "og:description", content: "The premium personal dashboard for tasks, habits, weather, prayer, notes, and XP streaks." },
+      { property: "og:description", content: "The premium personal dashboard for tasks, habits, weather, prayer, notes, and XP streaks. Beautifully themed." },
     ],
   }),
 });
