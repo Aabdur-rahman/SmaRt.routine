@@ -4,7 +4,7 @@ A premium, gamified personal dashboard that brings tasks, habits, weather, praye
 
 ![Lumen Dashboard](https://aura-life-dash.lovable.app/og-image.png)
 
-## ✨ What is Lumen?
+## ✨ What is SmaRt.routine?
 
 Lumen is your intelligent life dashboard — a single place to organize your day, build habits, track progress, and stay mindful. It replaces scattered productivity apps with a unified, visually stunning experience that adapts to your mood through 11+ dynamic themes.
 
@@ -62,7 +62,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_anon_key
 bun run dev
 ```
 
-Open [http://localhost:8080](http://localhost:8080) in your browser.
+Open https://lumina-life-333s.vercel.app/ in your browser.
 
 ## 🧱 Build for Production
 
@@ -73,6 +73,7 @@ bun run build
 The static output is generated in `dist/`.
 
 ## 🌐 Deployment
+https://lumina-life-333s.vercel.app/
 
 ### Deploy with Lovable
 
