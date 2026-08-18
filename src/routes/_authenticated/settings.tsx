@@ -124,6 +124,33 @@ function SettingsPage() {
   );
 }
 
+function Field({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  placeholder?: string;
+  type?: string;
+}) {
+  return (
+    <label className="block rounded-xl border border-border bg-card/40 p-3">
+      <div className="text-xs text-muted-foreground">{label}</div>
+      <input
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        onChange={(e) => onChange(e.target.value)}
+        className="mt-1 w-full bg-transparent text-sm font-medium outline-none placeholder:text-muted-foreground/60"
+      />
+    </label>
+  );
+}
+
 function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-border bg-card/40 p-3">
