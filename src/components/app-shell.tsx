@@ -1,8 +1,6 @@
-import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, CheckSquare, Flame, StickyNote, Settings, Sparkles, LogOut, Menu, X } from "lucide-react";
+import { Link, useRouterState } from "@tanstack/react-router";
+import { LayoutDashboard, CheckSquare, Flame, StickyNote, Settings, Sparkles, Menu, X } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useQueryClient } from "@tanstack/react-query";
 import { ThemePicker } from "./theme-picker";
 
 const NAV = [
@@ -15,22 +13,13 @@ const NAV = [
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const path = useRouterState({ select: (s) => s.location.pathname });
-
-  const signOut = async () => {
-    await queryClient.cancelQueries();
-    queryClient.clear();
-    await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
-  };
 
   return (
     <div className="flex min-h-dvh">
       {/* Sidebar (desktop) */}
       <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 border-r border-border p-4 lg:block">
-        <SidebarInner path={path} signOut={signOut} />
+        <SidebarInner path={path} />
       </aside>
 
       {/* Mobile top bar */}
@@ -66,7 +55,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 <X className="h-4 w-4" />
               </button>
             </div>
-            <SidebarInner path={path} signOut={signOut} onNavigate={() => setMobileOpen(false)} />
+            <SidebarInner path={path} onNavigate={() => setMobileOpen(false)} />
           </div>
         </div>
       )}
@@ -79,10 +68,9 @@ export function AppShell({ children }: { children: ReactNode }) {
 }
 
 function SidebarInner({
-  path, signOut, onNavigate,
+  path, onNavigate,
 }: {
   path: string;
-  signOut: () => void;
   onNavigate?: () => void;
 }) {
   return (
@@ -117,13 +105,6 @@ function SidebarInner({
 
       <div className="mt-auto space-y-3">
         <ThemePicker />
-        <button
-          onClick={signOut}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted-foreground transition hover:bg-accent hover:text-foreground"
-        >
-          <LogOut className="h-4 w-4" />
-          Sign out
-        </button>
       </div>
     </div>
   );

@@ -57,9 +57,9 @@ function Nav() {
             <a href="#showcase" className="text-sm text-muted-foreground hover:text-foreground transition">Showcase</a>
           </nav>
           <div className="flex items-center gap-2">
-            <Link to="/auth" className="hidden text-sm text-muted-foreground hover:text-foreground transition md:inline">Sign in</Link>
+            <Link to="/dashboard" className="hidden text-sm text-muted-foreground hover:text-foreground transition md:inline">Dashboard</Link>
             <Link
-              to="/auth"
+              to="/dashboard"
               className="rounded-full gradient-brand px-4 py-1.5 text-sm font-medium text-primary-foreground shadow-glow transition hover:opacity-90"
             >
               Get started
@@ -116,7 +116,7 @@ function Hero() {
           className="mt-10 flex flex-wrap items-center justify-center gap-3"
         >
           <Link
-            to="/auth"
+            to="/dashboard"
             className="inline-flex items-center gap-2 rounded-full gradient-brand px-6 py-3 text-sm font-medium text-primary-foreground shadow-glow transition hover:scale-[1.02]"
           >
             Start free <ArrowRight className="h-4 w-4" />
@@ -269,7 +269,7 @@ function CTA() {
             Start free. No credit card. Import in seconds. Feel the difference in a week.
           </p>
           <Link
-            to="/auth"
+            to="/dashboard"
             className="mt-8 inline-flex items-center gap-2 rounded-full gradient-brand px-8 py-3 text-sm font-medium text-primary-foreground shadow-glow transition hover:scale-[1.02]"
           >
             Get Lumen free <ArrowRight className="h-4 w-4" />
