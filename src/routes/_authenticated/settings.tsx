@@ -24,6 +24,44 @@ function SettingsPage() {
     },
   });
 
+  const qc = useQueryClient();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (!profile) return;
+    setName(profile.display_name ?? "");
+    setEmail(profile.email ?? "");
+  }, [profile]);
+
+  const save = async () => {
+    setSaving(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("No session");
+
+      const { error } = await supabase
+        .from("profiles")
+        .upsert({ id: user.id, display_name: name.trim() || null }, { onConflict: "id" });
+      if (error) throw error;
+
+      const cleanEmail = email.trim();
+      if (cleanEmail && cleanEmail !== (profile?.email ?? "")) {
+        const { error: authErr } = await supabase.auth.updateUser({ email: cleanEmail });
+        if (authErr) throw authErr;
+        toast.success("Saved — check your inbox to confirm your email.");
+      } else {
+        toast.success("Profile saved");
+      }
+      await qc.invalidateQueries({ queryKey: ["profile"] });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "Could not save profile");
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div className="mx-auto max-w-4xl p-4 md:p-8">
       <div className="mb-6">
@@ -33,10 +71,19 @@ function SettingsPage() {
 
       <div className="glass mb-6 rounded-3xl p-6">
         <h3 className="font-display text-lg font-semibold">Profile</h3>
+        <p className="mt-1 text-sm text-muted-foreground">Add your name and email so Lumen can greet you properly.</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <Row label="Name" value={profile?.display_name ?? "—"} />
-          <Row label="Email" value={profile?.email ?? "—"} />
+          <Field label="Name" value={name} onChange={setName} placeholder="Your name" />
+          <Field label="Email" value={email} onChange={setEmail} placeholder="you@example.com" type="email" />
         </div>
+        <button
+          onClick={save}
+          disabled={saving}
+          className="mt-4 inline-flex items-center gap-2 rounded-xl gradient-brand px-4 py-2 text-sm font-medium text-primary-foreground disabled:opacity-60"
+        >
+          {saving && <Loader2 className="h-4 w-4 animate-spin" />}
+          Save profile
+        </button>
       </div>
 
       <div className="glass rounded-3xl p-6">
