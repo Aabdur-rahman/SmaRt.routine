@@ -117,13 +117,6 @@ function SidebarInner({
 
       <div className="mt-auto space-y-3">
         <ThemePicker />
-        <button
-          onClick={signOut}
-          className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-muted-foreground transition hover:bg-accent hover:text-foreground"
-        >
-          <LogOut className="h-4 w-4" />
-          Sign out
-        </button>
       </div>
     </div>
   );
